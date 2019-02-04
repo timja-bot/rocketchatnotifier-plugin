@@ -23,23 +23,23 @@
       <f:checkbox field="trustSSL" name="trustSSL" checked="${descriptor.isTrustSSL()}"/>
     </f:entry>
     <f:entry title="Login Username">
-      <f:textbox field="username" name="rocketUsername" value="${descriptor.getUsername()}" help="Login of the user. Can also be the user id for token based login"/>
+      <f:textbox field="username" name="username" value="${descriptor.getUsername()}" help="Login of the user. Can also be the user id for token based login"/>
     </f:entry>
     <f:entry title="Login password">
-      <f:password field="password" name="rocketPassword" value="${descriptor.getPassword()}" help="Password of the rocketchat user. Can be also the personal access token"/>
+      <f:password field="password" name="password" value="${descriptor.getPassword()}" help="Password of the rocketchat user. Can be also the personal access token"/>
     </f:entry>
     <f:entry title="Webhook Token">
       <f:password field="token" name="webhookToken" value="${descriptor.getWebhookToken()}" help="As alternative for login/password you can use the webhook token here"/>
     </f:entry>
     <f:entry title="Channel" description="Comma separated list of rooms (e.g. #project) and / or persons (e.g. @john)">
-      <f:textbox field="channel" name="rocketChannel" value="${descriptor.getChannel()}"/>
+      <f:textbox field="channel" name="channel" value="${descriptor.getChannel()}"/>
     </f:entry>
     <f:entry title="Build Server URL">
-      <f:textbox field="buildServerUrl" name="rocketBuildServerUrl" value="${descriptor.getBuildServerUrl()}"/>
+      <f:textbox field="buildServerUrl" name="buildServerUrl" value="${descriptor.getBuildServerUrl()}"/>
     </f:entry>
     <f:validateButton
       title="${%Test Connection}" progress="${%Testing...}"
       method="testConnection"
-      with="rocketServerUrl,trustSSL,rocketUsername,rocketPassword,rocketChannel,rocketBuildServerUrl"/>
+      with="rocketServerUrl,trustSSL,username,password,channel,buildServerUrl"/>
   </f:section>
 </j:jelly>
