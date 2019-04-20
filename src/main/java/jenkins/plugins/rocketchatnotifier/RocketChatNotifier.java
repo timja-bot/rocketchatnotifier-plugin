@@ -2,6 +2,7 @@ package jenkins.plugins.rocketchatnotifier;
 
 import com.cloudbees.plugins.credentials.common.StandardListBoxModel;
 import com.cloudbees.plugins.credentials.domains.DomainRequirement;
+import hudson.BulkChange;
 import hudson.EnvVars;
 import hudson.Extension;
 import hudson.Launcher;
@@ -306,7 +307,7 @@ public class RocketChatNotifier extends Notifier {
                             final boolean startNotification, final boolean notifyAborted, final boolean notifyFailure,
                             final boolean notifyNotBuilt, final boolean notifySuccess, final boolean notifyUnstable, final boolean notifyBackToNormal,
                             final boolean notifyRepeatedFailure, final boolean includeTestSummary, final boolean includeTestLog, CommitInfoChoice commitInfoChoice,
-                            boolean includeCustomMessage, final boolean rawMessage, String customMessage, List<MessageAttachment> attachments, String webhookToken, String tokenCredentialId) {
+                            boolean includeCustomMessage, final boolean rawMessage, String customMessage, List<MessageAttachment> attachments, String webhookToken, String webhookTokenCredentialId) {
     super();
     this.rocketServerUrl = rocketServerUrl;
     this.trustSSL = trustSSL;
@@ -330,7 +331,7 @@ public class RocketChatNotifier extends Notifier {
     this.customMessage = customMessage;
     this.attachments = attachments;
     this.webhookToken = webhookToken;
-    this.webhookTokenCredentialId = tokenCredentialId;
+    this.webhookTokenCredentialId = webhookTokenCredentialId;
   }
 
   public BuildStepMonitor getRequiredMonitorService() {
@@ -465,9 +466,9 @@ public class RocketChatNotifier extends Notifier {
       if (sr != null && json != null) {
         String rocketServerUrl = sr.getParameter("rocketServerUrl");
         boolean trustSSL = BooleanUtils.toBoolean(sr.getParameter("trustSSL"));
-        String username = sr.getParameter("rocketUsername");
-        String password = sr.getParameter("rocketPassword");
-        String channel = sr.getParameter("rocketChannel");
+        String username = sr.getParameter("username");
+        String password = sr.getParameter("password");
+        String channel = sr.getParameter("channel");
         boolean startNotification = "true".equals(sr.getParameter("rocketStartNotification"));
         boolean notifySuccess = "true".equals(sr.getParameter("rocketNotifySuccess"));
         boolean notifyAborted = "true".equals(sr.getParameter("rocketNotifyAborted"));
@@ -496,7 +497,7 @@ public class RocketChatNotifier extends Notifier {
           }
         }
         String webhookToken = sr.getParameter("webhookToken");
-        String webhookTokenCredentialId = json.getString("tokenCredentialId");
+        String webhookTokenCredentialId = json.getString("webhookTokenCredentialId");
         return new RocketChatNotifier(rocketServerUrl, trustSSL, username, password, channel, buildServerUrl, startNotification, notifyAborted,
           notifyFailure, notifyNotBuilt, notifySuccess, notifyUnstable, notifyBackToNormal, notifyRepeatedFailure,
           includeTestSummary, includeTestLog, commitInfoChoice, includeCustomMessage, rawMessage, customMessage, attachments, webhookToken, webhookTokenCredentialId);
@@ -505,26 +506,71 @@ public class RocketChatNotifier extends Notifier {
     }
 
     @Override
-    public boolean configure(StaplerRequest sr, JSONObject formData) throws FormException {
-      rocketServerUrl = sr.getParameter("rocketServerUrl");
-      trustSSL = BooleanUtils.toBoolean(sr.getParameter("trustSSL"));
-      username = sr.getParameter("rocketUsername");
-      password = sr.getParameter("rocketPassword");
-      channel = sr.getParameter("rocketChannel");
-      buildServerUrl = sr.getParameter("rocketBuildServerUrl");
+    public boolean configure(StaplerRequest req, JSONObject json) throws FormException {
+      BulkChange bc = new BulkChange(this);
+      try {
+        req.bindJSON(this, json);
+        bc.commit();
+      } catch (IOException ex) {
+        LOGGER.warning(ex.getMessage());
+        return false;
+      }
+      return true;
+    }
+
+    @DataBoundSetter
+    public void setRocketServerUrl(String rocketServerUrl) {
+      this.rocketServerUrl = rocketServerUrl;
+      save();
+    }
+
+    @DataBoundSetter
+    public void setTrustSSL(boolean trustSSL) {
+      this.trustSSL = trustSSL;
+      save();
+    }
+
+    @DataBoundSetter
+    public void setUsername(String username) {
+      this.username = username;
+      save();
+    }
+
+    @DataBoundSetter
+    public void setPassword(String password) {
+      this.password = password;
+      save();
+    }
+
+    @DataBoundSetter
+    public void setChannel(String channel) {
+      this.channel = channel;
+      save();
+    }
+
+    @DataBoundSetter
+    public void setWebhookTokenCredentialId(String webhookTokenCredentialId) {
+      this.webhookTokenCredentialId = webhookTokenCredentialId;
+      save();
+    }
+
+    @DataBoundSetter
+    public void setBuildServerUrl(String buildServerUrl) {
+      this.buildServerUrl = buildServerUrl;
       if (buildServerUrl == null || buildServerUrl.equalsIgnoreCase("")) {
         JenkinsLocationConfiguration jenkinsConfig = new JenkinsLocationConfiguration();
-        buildServerUrl = jenkinsConfig.getUrl();
+        this.buildServerUrl = jenkinsConfig.getUrl();
       }
       if (buildServerUrl != null && !buildServerUrl.endsWith("/")) {
-        buildServerUrl = buildServerUrl + "/";
-      }
-      webhookToken = sr.getParameter("webhookToken");
-      if (formData != null && formData.containsKey("tokenCredentialId")) {
-        webhookTokenCredentialId = formData.getString("tokenCredentialId");
+        this.buildServerUrl = buildServerUrl + "/";
       }
       save();
-      return super.configure(sr, formData);
+    }
+
+    @DataBoundSetter
+    public void setWebhookToken(String webhookToken) {
+      this.webhookToken = webhookToken;
+      save();
     }
 
     @Override
@@ -534,12 +580,12 @@ public class RocketChatNotifier extends Notifier {
 
     public FormValidation doTestConnection(@QueryParameter("rocketServerUrl") final String rocketServerUrl,
                                            @QueryParameter("trustSSL") final String trustSSL,
-                                           @QueryParameter("rocketUsername") final String username,
-                                           @QueryParameter("rocketPassword") final String password,
-                                           @QueryParameter("rocketChannel") final String channel,
-                                           @QueryParameter("rocketBuildServerUrl") final String buildServerUrl,
+                                           @QueryParameter("username") final String username,
+                                           @QueryParameter("password") final String password,
+                                           @QueryParameter("channel") final String channel,
+                                           @QueryParameter("buildServerUrl") final String buildServerUrl,
                                            @QueryParameter("webhookToken") final String token,
-                                           @QueryParameter("tokenCredentialId") final String webhookTokenCredentialId) throws FormException {
+                                           @QueryParameter("webhookTokenCredentialId") final String webhookTokenCredentialId) throws FormException {
       try {
         String targetServerUrl = rocketServerUrl + RocketClientImpl.API_PATH;
         if (StringUtils.isEmpty(rocketServerUrl)) {
