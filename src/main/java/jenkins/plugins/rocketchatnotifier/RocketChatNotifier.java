@@ -355,6 +355,12 @@ public class RocketChatNotifier extends Notifier {
     if (StringUtils.isEmpty(channel)) {
       channel = getDescriptor().getChannel();
     }
+    if (StringUtils.isEmpty(webhookTokenCredentialId)) {
+      channel = getDescriptor().getWebhookTokenCredentialId();
+    }
+    if (StringUtils.isEmpty(webhookToken)) {
+      channel = getDescriptor().getWebhookToken();
+    }
 
     EnvVars env = null;
     try {
@@ -469,6 +475,8 @@ public class RocketChatNotifier extends Notifier {
         String username = sr.getParameter("username");
         String password = sr.getParameter("password");
         String channel = sr.getParameter("channel");
+        String webhookTokenCredentialId = json.getString("webhookTokenCredentialId");
+        String webhookToken = sr.getParameter("webhookToken");
         boolean startNotification = "true".equals(sr.getParameter("rocketStartNotification"));
         boolean notifySuccess = "true".equals(sr.getParameter("rocketNotifySuccess"));
         boolean notifyAborted = "true".equals(sr.getParameter("rocketNotifyAborted"));
@@ -496,8 +504,6 @@ public class RocketChatNotifier extends Notifier {
             }
           }
         }
-        String webhookToken = sr.getParameter("webhookToken");
-        String webhookTokenCredentialId = json.getString("webhookTokenCredentialId");
         return new RocketChatNotifier(rocketServerUrl, trustSSL, username, password, channel, buildServerUrl, startNotification, notifyAborted,
           notifyFailure, notifyNotBuilt, notifySuccess, notifyUnstable, notifyBackToNormal, notifyRepeatedFailure,
           includeTestSummary, includeTestLog, commitInfoChoice, includeCustomMessage, rawMessage, customMessage, attachments, webhookToken, webhookTokenCredentialId);
