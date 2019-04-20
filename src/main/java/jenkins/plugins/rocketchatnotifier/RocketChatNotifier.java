@@ -2,7 +2,6 @@ package jenkins.plugins.rocketchatnotifier;
 
 import com.cloudbees.plugins.credentials.common.StandardListBoxModel;
 import com.cloudbees.plugins.credentials.domains.DomainRequirement;
-import hudson.BulkChange;
 import hudson.EnvVars;
 import hudson.Extension;
 import hudson.Launcher;
@@ -21,7 +20,6 @@ import jenkins.model.Jenkins;
 import jenkins.model.JenkinsLocationConfiguration;
 import jenkins.plugins.rocketchatnotifier.model.MessageAttachment;
 import jenkins.plugins.rocketchatnotifier.rocket.errorhandling.RocketClientException;
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -35,7 +33,6 @@ import sun.security.validator.ValidatorException;
 
 import javax.net.ssl.SSLHandshakeException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -468,96 +465,40 @@ public class RocketChatNotifier extends Notifier {
     }
 
     @Override
-    public RocketChatNotifier newInstance(StaplerRequest sr, JSONObject json) {
-      if (sr != null && json != null) {
-        String rocketServerUrl = sr.getParameter("rocketServerUrl");
-        boolean trustSSL = BooleanUtils.toBoolean(sr.getParameter("trustSSL"));
-        String username = sr.getParameter("username");
-        String password = sr.getParameter("password");
-        String channel = sr.getParameter("channel");
-        String webhookTokenCredentialId = json.getString("webhookTokenCredentialId");
-        String webhookToken = sr.getParameter("webhookToken");
-        boolean startNotification = "true".equals(sr.getParameter("rocketStartNotification"));
-        boolean notifySuccess = "true".equals(sr.getParameter("rocketNotifySuccess"));
-        boolean notifyAborted = "true".equals(sr.getParameter("rocketNotifyAborted"));
-        boolean notifyNotBuilt = "true".equals(sr.getParameter("rocketNotifyNotBuilt"));
-        boolean notifyUnstable = "true".equals(sr.getParameter("rocketNotifyUnstable"));
-        boolean notifyFailure = "true".equals(sr.getParameter("rocketNotifyFailure"));
-        boolean notifyBackToNormal = "true".equals(sr.getParameter("rocketNotifyBackToNormal"));
-        boolean notifyRepeatedFailure = "true".equals(sr.getParameter("rocketNotifyRepeatedFailure"));
-        boolean includeTestSummary = "true".equals(sr.getParameter("includeTestSummary"));
-        boolean includeTestLog = "true".equals(sr.getParameter("includeTestLog"));
-        CommitInfoChoice commitInfoChoice = CommitInfoChoice.forDisplayName(sr.getParameter("rocketCommitInfoChoice"));
-        boolean includeCustomMessage = "on".equals(sr.getParameter("includeCustomMessage"));
-        boolean rawMessage = BooleanUtils.toBoolean(sr.getParameter("rawMessage"));
-        String customMessage = sr.getParameter("customMessage");
-        List<MessageAttachment> attachments = new ArrayList<>();
-        Object attachmentObject = json.get("attachments");
-        if (attachmentObject != null) {
-          if (attachmentObject instanceof JSONObject) {
-            attachments.add(MessageAttachment.fromJSON((JSONObject) attachmentObject));
-          }
-          else {
-            final JSONArray jsonArray = ((JSONArray) attachmentObject);
-            for (int i = 0; i < jsonArray.size(); i++) {
-              attachments.add(MessageAttachment.fromJSON(jsonArray.getJSONObject(i)));
-            }
-          }
-        }
-        return new RocketChatNotifier(rocketServerUrl, trustSSL, username, password, channel, buildServerUrl, startNotification, notifyAborted,
-          notifyFailure, notifyNotBuilt, notifySuccess, notifyUnstable, notifyBackToNormal, notifyRepeatedFailure,
-          includeTestSummary, includeTestLog, commitInfoChoice, includeCustomMessage, rawMessage, customMessage, attachments, webhookToken, webhookTokenCredentialId);
-      }
-      return null;
-    }
-
-    @Override
     public boolean configure(StaplerRequest req, JSONObject json) {
-      BulkChange bc = new BulkChange(this);
-      try {
-        req.bindJSON(this, json);
-        bc.commit();
-      } catch (IOException ex) {
-        LOGGER.severe(ex.getMessage());
-        return false;
-      }
+      req.bindJSON(this, json);
+      save();
       return true;
     }
 
     @DataBoundSetter
     public void setRocketServerUrl(String rocketServerUrl) {
       this.rocketServerUrl = rocketServerUrl;
-      save();
     }
 
     @DataBoundSetter
     public void setTrustSSL(boolean trustSSL) {
       this.trustSSL = trustSSL;
-      save();
     }
 
     @DataBoundSetter
     public void setUsername(String username) {
       this.username = username;
-      save();
     }
 
     @DataBoundSetter
     public void setPassword(String password) {
       this.password = password;
-      save();
     }
 
     @DataBoundSetter
     public void setChannel(String channel) {
       this.channel = channel;
-      save();
     }
 
     @DataBoundSetter
     public void setWebhookTokenCredentialId(String webhookTokenCredentialId) {
       this.webhookTokenCredentialId = webhookTokenCredentialId;
-      save();
     }
 
     @DataBoundSetter
@@ -570,13 +511,11 @@ public class RocketChatNotifier extends Notifier {
       if (buildServerUrl != null && !buildServerUrl.endsWith("/")) {
         this.buildServerUrl = buildServerUrl + "/";
       }
-      save();
     }
 
     @DataBoundSetter
     public void setWebhookToken(String webhookToken) {
       this.webhookToken = webhookToken;
-      save();
     }
 
     @Override
