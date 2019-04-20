@@ -512,13 +512,13 @@ public class RocketChatNotifier extends Notifier {
     }
 
     @Override
-    public boolean configure(StaplerRequest req, JSONObject json) throws FormException {
+    public boolean configure(StaplerRequest req, JSONObject json) {
       BulkChange bc = new BulkChange(this);
       try {
         req.bindJSON(this, json);
         bc.commit();
       } catch (IOException ex) {
-        LOGGER.warning(ex.getMessage());
+        LOGGER.severe(ex.getMessage());
         return false;
       }
       return true;
