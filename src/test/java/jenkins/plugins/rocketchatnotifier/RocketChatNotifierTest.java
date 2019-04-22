@@ -1,9 +1,12 @@
 package jenkins.plugins.rocketchatnotifier;
 
+import hudson.DescriptorExtensionList;
 import hudson.EnvVars;
 import hudson.model.AbstractBuild;
 import hudson.model.BuildListener;
+import jenkins.model.GlobalConfiguration;
 import jenkins.model.Jenkins;
+import jenkins.model.JenkinsLocationConfiguration;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +22,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(PowerMockRunner.class)
@@ -40,6 +44,9 @@ public class RocketChatNotifierTest {
   @Mock
   private BuildListener listener;
 
+  @Mock
+  private RocketChatNotifier.DescriptorImpl descriptor;
+
   RocketChatNotifier notifier;
 
   @Before
@@ -52,13 +59,21 @@ public class RocketChatNotifierTest {
     PowerMockito.whenNew(RocketClientWebhookImpl.class).withAnyArguments().thenReturn(rocketClientWithWebhook);
     PowerMockito.when(Jenkins.getInstance()).thenReturn(jenkins);
     File rootPath = new File(System.getProperty("java.io.tmpdir"));
+    when(jenkins.get()).thenReturn(jenkins);
     when(jenkins.getRootDir()).thenReturn(rootPath);
+    DescriptorExtensionList mockList = mock(DescriptorExtensionList.class);
+    when(jenkins.getDescriptorList(GlobalConfiguration.class)).thenReturn(mockList);
     notifier = new RocketChatNotifier(
       "rocket.example.com", false,
       "user", "password",
       "jenkins", "rocket.example.com",
       false,
-      false, false, false, false, false, false, false, false, false, null, false, false, null, null, null, null);
+      false, false, false, false, false, false, false, false, false, null, false, false, null, null, null, null) {
+      @Override
+      public DescriptorImpl getDescriptor() {
+        return descriptor;
+      }
+    };
   }
 
   @Test

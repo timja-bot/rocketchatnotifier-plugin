@@ -254,10 +254,7 @@ public class RocketSendStep extends AbstractStepImpl {
     //streamline unit testing
     RocketClient getRocketClient(String server, boolean trustSSL, String user, String password, String channel,
                                  String webhookToken, String webhookTokenCredentialId) throws RocketClientException {
-      if (!StringUtils.isEmpty(webhookToken) || !StringUtils.isEmpty(webhookTokenCredentialId)) {
-        return new RocketClientWebhookImpl(server, trustSSL, webhookToken, webhookTokenCredentialId, channel);
-      }
-      return new RocketClientImpl(server, trustSSL, user, password, channel);
+      return getRocketClient(server, user, password, channel, webhookToken, webhookTokenCredentialId, trustSSL);
     }
 
   }

@@ -359,7 +359,7 @@ public class RocketChatNotifier extends Notifier {
       channel = getDescriptor().getWebhookToken();
     }
 
-    EnvVars env = null;
+    EnvVars env;
     try {
       env = r.getEnvironment(listener);
     }
@@ -371,6 +371,10 @@ public class RocketChatNotifier extends Notifier {
     username = env.expand(username);
     password = env.expand(password);
 
+    return getRocketClient(serverUrl, username, password, channel, webhookToken, webhookTokenCredentialId, trustSSL);
+  }
+
+  public static RocketClient getRocketClient(String serverUrl, String username, String password, String channel, String webhookToken, String webhookTokenCredentialId, boolean trustSSL) throws RocketClientException {
     if (!StringUtils.isEmpty(webhookToken) || !StringUtils.isEmpty(webhookTokenCredentialId)) {
       return new RocketClientWebhookImpl(serverUrl, trustSSL, webhookToken, webhookTokenCredentialId, channel);
     }
