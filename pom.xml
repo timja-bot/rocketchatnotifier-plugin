@@ -5,7 +5,7 @@
     <groupId>org.jenkins-ci.plugins</groupId>
     <artifactId>plugin</artifactId>
     <version>4.38</version>
-    <relativePath />
+    <relativePath/>
   </parent>
 
   <properties>
@@ -216,7 +216,7 @@
     <dependency>
       <groupId>net.java.dev.jna</groupId>
       <artifactId>jna</artifactId>
-      <version>5.10.0</version>
+      <version>5.11.0</version>
     </dependency>
     <dependency>
       <groupId>com.googlecode.json-simple</groupId>
