@@ -1,6 +1,6 @@
 # Rocket Chat Notification Plugin for Jenkins
 
-[![Build Status](https://travis-ci.org/jenkinsci/rocketchatnotifier-plugin.svg?branch=master)](https://travis-ci.org/jenkinsci/rocketchatnotifier-plugin) 
+[![Build Status](https://travis-ci.org/jenkinsci/rocketchatnotifier-plugin.svg?branch=master)](https://travis-ci.org/jenkinsci/rocketchatnotifier-plugin)
 [![Build Status](https://ci.jenkins.io/job/Plugins/job/rocketchatnotifier-plugin/job/master/badge/icon)](https://ci.jenkins.io/blue/organizations/jenkins/Plugins%2Frocketchatnotifier-plugin/branches/)
 [![Build Status](https://jenkins.martinreinhardt-online.de/buildStatus/icon?job=OSS/rocketchatnotifier-plugin/master)](https://jenkins.martinreinhardt-online.de/blue/organizations/jenkins/OSS%2Frocketchatnotifier-plugin/branches/)
 [![codecov](https://codecov.io/gh/jenkinsci/rocketchatnotifier-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/jenkinsci/rocketchatnotifier-plugin)
@@ -11,13 +11,10 @@ The latest stable version is available at Plugins Center. Dev builds are availab
 
 <a name="donation"></a>
 > Feel free to **donate**
+> Either **Paypal** <a target="_blank" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=D88ZDNH6AANPJ"> <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif"/> </img></a>
+> , or donate **Bitcoins**: bitcoin:3NKtxw1SRYgess5ev4Ri54GekoAgkR213D:
 >
-> <a target="_blank" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=D88ZDNH6AANPJ">
-> <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif"/>
-> </img></a>
-> Or donate Bitcoins: bitcoin:3NKtxw1SRYgess5ev4Ri54GekoAgkR213D
->
-> [![Bitcoin](https://martinreinhardt-online.de/bitcoin.png)](bitcoin:3NKtxw1SRYgess5ev4Ri54GekoAgkR213D)
+> ![Bitcoin](https://martinreinhardt-online.de/bitcoin.png)
 >
 > Also via [greenaddress](https://greenaddress.it/pay/GA3ZPfh7As3Gc2oP6pQ1njxMij88u/)
 
