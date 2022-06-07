@@ -5,7 +5,7 @@
     <groupId>org.jenkins-ci.plugins</groupId>
     <artifactId>plugin</artifactId>
     <version>4.37</version>
-    <relativePath/>
+    <relativePath />
   </parent>
 
   <properties>
@@ -14,7 +14,7 @@
     <java.level>8</java.level>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <failsafeArgLine/>
+    <failsafeArgLine />
     <skipITs>false</skipITs>
     <!-- Project Libs-->
 		<junit.plugin.version>1.6</junit.plugin.version>
@@ -37,7 +37,7 @@
 
   <name>RocketChat Notifier</name>
   <artifactId>rocketchatnotifier</artifactId>
-  <version>1.5.2-SNAPSHOT</version>
+  <version>1.5.2</version>
   <packaging>hpi</packaging>
 
   <licenses>
@@ -370,4 +370,8 @@
       <url>https://repo.jenkins-ci.org/snapshots</url>
     </snapshotRepository>
   </distributionManagement>
+
+  <scm>
+    <tag>rocketchatnotifier-1.5.2</tag>
+  </scm>
 </project>
