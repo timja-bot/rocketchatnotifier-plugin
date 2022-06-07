@@ -1,19 +1,22 @@
-# [1.5.0](https://github.com/jenkinsci/rocketchatnotifier-plugin/compare/v1.4.10...v1.5.0) (2022-03-24)
+# [1.5.2](https://github.com/jenkinsci/rocketchatnotifier-plugin/compare/v1.5.1...v1.5.2) (2022-06-07)
 
 
 ### Bug Fixes
 
-* **FindBugs:** Resolve NPE error ([ed89b66](https://github.com/jenkinsci/rocketchatnotifier-plugin/commit/ed89b66e708bf23d6dd1a58e7ebafdf84c0877ee))
-* **FindBugs:** Resolve possible NPE issues ([214d7bd](https://github.com/jenkinsci/rocketchatnotifier-plugin/commit/214d7bdab415394fadaff0a46a4b86f88f0ea9ad))
-* **Security:** Improve credential handling ([1a0023b](https://github.com/jenkinsci/rocketchatnotifier-plugin/commit/1a0023be9f2e143434d028d5292ef9dc3195d051))
-* **Security:** Improve credential handling ([2b0797e](https://github.com/jenkinsci/rocketchatnotifier-plugin/commit/2b0797ecb81b86fa25585c3bacb9c617d9f265aa))
+* Make Plugin work with [Jenkins LTS](https://issues.jenkins.io/browse/JENKINS-68527)
 
 
-### Features
+# [1.5.1](https://github.com/jenkinsci/rocketchatnotifier-plugin/compare/v1.5.0...v1.5.1) (2022-04-22)
 
-* **Security:** Drop explizit logging dependencies ([690a906](https://github.com/jenkinsci/rocketchatnotifier-plugin/commit/690a9066d856e3aca371db1e0ca3f12cf1b46342))
 
-# [1.4.10](https://github.com/jenkinsci/rocketchatnotifier-plugin/compare/v1.4.0...v1.4.10) (2021-09-13)
+### Bug Fixes
+
+* upgrade com.fasterxml.jackson.core:jackson-databind from 2.13.2 to 2.13.2.2 ([2aaf1bd](https://github.com/jenkinsci/rocketchatnotifier-plugin/commit/2aaf1bd3182d477ad85b5f84d076b27c0b50232d))
+* upgrade net.java.dev.jna:jna from 5.10.0 to 5.11.0 ([aea6d84](https://github.com/jenkinsci/rocketchatnotifier-plugin/commit/aea6d8489d8b55ad9c51744a2f0ee6a99b036395))
+
+
+
+# [1.5.0](https://github.com/jenkinsci/rocketchatnotifier-plugin/compare/v1.4.10...v1.5.0) (2022-03-24)
 
 
 ### Bug Fixes
@@ -24,6 +27,8 @@
 * **Config:** Resolve config save error [JENKINS-59149] ([05c758f](https://github.com/jenkinsci/rocketchatnotifier-plugin/commit/05c758f75f583da6b124cfa803aa7e8907e0a995))
 * **deps:** Fix enforcer failure due to credentials upgrade ([#55](https://github.com/jenkinsci/rocketchatnotifier-plugin/issues/55)) ([d39d9d1](https://github.com/jenkinsci/rocketchatnotifier-plugin/commit/d39d9d139e6a2a59b2ddd9dc004cc3a48249f2b4))
 * **Error Handlung:** Add error string to response for further logging ([#100](https://github.com/jenkinsci/rocketchatnotifier-plugin/issues/100)) ([9dd4d3e](https://github.com/jenkinsci/rocketchatnotifier-plugin/commit/9dd4d3e2a82fdcfb412c60e39e84f88671b5e6f8))
+* **FindBugs:** Resolve NPE error ([ed89b66](https://github.com/jenkinsci/rocketchatnotifier-plugin/commit/ed89b66e708bf23d6dd1a58e7ebafdf84c0877ee))
+* **FindBugs:** Resolve possible NPE issues ([214d7bd](https://github.com/jenkinsci/rocketchatnotifier-plugin/commit/214d7bdab415394fadaff0a46a4b86f88f0ea9ad))
 * **Jenkins URL:** use JenkinsLocationConfiguration.get() (JENKINS-59153) ([#54](https://github.com/jenkinsci/rocketchatnotifier-plugin/issues/54)) ([1ec2e45](https://github.com/jenkinsci/rocketchatnotifier-plugin/commit/1ec2e4511af612511677e957dc7a1b5cede5dfdc))
 * **Logging:** Improve logging for JENKINS-59149 ([c74509b](https://github.com/jenkinsci/rocketchatnotifier-plugin/commit/c74509be45fcbe5996bf8b82690831d3ce34031b))
 * **Message sent:** Improve error handling ([ec36a79](https://github.com/jenkinsci/rocketchatnotifier-plugin/commit/ec36a797f5fc823f83edf3d19d521884987bb613))
@@ -43,6 +48,9 @@
 * **Message:** Adding color support ([2c69a63](https://github.com/jenkinsci/rocketchatnotifier-plugin/commit/2c69a637f7982bb12f44f8ab8c4837e49c8c91d1))
 * **Pipeline:** Allow to customize server while using rocketSend step ([7bea98c](https://github.com/jenkinsci/rocketchatnotifier-plugin/commit/7bea98c9b127a54e2e64b26d315f878fb10b384f))
 * **Pipeline:** Allow to customize server while using rocketSend step([JENKINS-58315](https://issues.jenkins-ci.org/browse/JENKINS-58315)) ([f97d1fa](https://github.com/jenkinsci/rocketchatnotifier-plugin/commit/f97d1fa5a40851e472d69ba7e5e50cdff19c0b52))
+* **Security:** Drop explizit logging dependencies ([690a906](https://github.com/jenkinsci/rocketchatnotifier-plugin/commit/690a9066d856e3aca371db1e0ca3f12cf1b46342))
+* **Security:** Improve credential handling ([1a0023b](https://github.com/jenkinsci/rocketchatnotifier-plugin/commit/1a0023be9f2e143434d028d5292ef9dc3195d051))
+* **Security:** Improve credential handling ([2b0797e](https://github.com/jenkinsci/rocketchatnotifier-plugin/commit/2b0797ecb81b86fa25585c3bacb9c617d9f265aa))
 * **Testing:** Adding most recent rocketchat versions ([89c5381](https://github.com/jenkinsci/rocketchatnotifier-plugin/commit/89c53815b1949948184826d63d27aec96c640d6b))
 
 
