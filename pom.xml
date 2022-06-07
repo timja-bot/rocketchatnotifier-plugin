@@ -9,8 +9,8 @@
   </parent>
 
   <properties>
+    <gitHubRepo>jenkinsci/${project.artifactId}</gitHubRepo>
     <jenkins.version>2.332.3</jenkins.version>
-
     <java.level>8</java.level>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -38,7 +38,15 @@
   <name>RocketChat Notifier</name>
   <artifactId>rocketchatnotifier</artifactId>
   <version>1.5.2</version>
+  <url>https://github.com/jenkinsci/${project.artifactId}</url>
   <packaging>hpi</packaging>
+
+  <scm>
+    <connection>scm:git:https://github.com/${gitHubRepo}.git</connection>
+    <developerConnection>scm:git:git@github.com:${gitHubRepo}.git</developerConnection>
+    <url>https://github.com/${gitHubRepo}</url>
+    <tag>${scmTag}</tag>
+  </scm>
 
   <licenses>
     <license>
@@ -82,6 +90,9 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-release-plugin</artifactId>
           <version>${maven-release-plugin.version}</version>
+          <configuration>
+              <tag>v${project.version}</tag>
+          </configuration>
         </plugin>
         <plugin>
           <groupId>com.amashchenko.maven.plugin</groupId>
@@ -115,13 +126,6 @@
             <format>html</format>
             <format>xml</format>
           </formats>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-release-plugin</artifactId>
-        <version>${maven-release-plugin.version}</version>
-        <configuration>
-          <tagNameFormat>rocketchatnotifier-@{project.version}</tagNameFormat>
         </configuration>
       </plugin>
       <plugin>
@@ -348,8 +352,6 @@
     <url>https://ci.jenkins.io/job/Plugins/job/rocketchatnotifier-plugin/</url>
   </ciManagement>
 
-  <url>https://github.com/jenkinsci/rocketchatnotifier-plugin/blob/develop/README.md</url>
-
   <developers>
     <developer>
       <id>hypery2k</id>
@@ -370,8 +372,4 @@
       <url>https://repo.jenkins-ci.org/snapshots</url>
     </snapshotRepository>
   </distributionManagement>
-
-  <scm>
-    <tag>rocketchatnotifier-1.5.2</tag>
-  </scm>
 </project>
